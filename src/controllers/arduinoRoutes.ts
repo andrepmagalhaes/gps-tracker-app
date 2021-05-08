@@ -61,6 +61,13 @@ const arduinoRoutes:Array<Controllers> = [
             });
         },
         type: methods.POST
+    },
+    {
+        path: "/hehehe",
+        async controller(req, res){
+            return res.send("OH!");
+        },
+        type: methods.GET
     }
 ]
 
