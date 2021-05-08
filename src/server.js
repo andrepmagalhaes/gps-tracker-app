@@ -8,5 +8,5 @@ var AppRouter_1 = __importDefault(require("./AppRouter"));
 var arduinoRoutes_1 = __importDefault(require("./controllers/arduinoRoutes"));
 var app = new App_1.default(new AppRouter_1.default([
     arduinoRoutes_1.default
-]), 8000);
+]), 5000);
 app.test();

@@ -6,7 +6,7 @@ const app = new App(
     new AppRouter([
         arduinoRoutes
     ]),
-    8000
+    5000
 );
 
 app.test();
