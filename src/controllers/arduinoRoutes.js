@@ -63,13 +63,14 @@ var arduinoRoutes = [
                 var arduinoData, dbCollection;
                 return __generator(this, function (_a) {
                     arduinoData = __assign({}, req.body);
+                    console.log(arduinoData);
                     dbCollection = db.collection("bus_" + arduinoData.ID);
                     dbCollection.doc("settings").get().then(function (snapshot) {
                         var data = __assign({}, snapshot.data());
                         if (data.isActive) {
                             if (Object.keys(data).length > 0) {
                                 //auth
-                                bcrypt_1.default.compare(arduinoData.key, data.privateKey, function (err, result) {
+                                bcrypt_1.default.compare(String(arduinoData.key), data.privateKey, function (err, result) {
                                     if (err)
                                         throw err;
                                     else {
@@ -80,7 +81,7 @@ var arduinoRoutes = [
                                                 var data = __assign({}, snapshot.data());
                                                 if (Object.keys(data).length > 0) {
                                                     data.positions.unshift({
-                                                        position: new firebase_1.default.firestore.GeoPoint(arduinoData.latitute, arduinoData.longitude),
+                                                        position: new firebase_1.default.firestore.GeoPoint(Number(arduinoData.latitute), Number(arduinoData.longitude)),
                                                         time: currentDate_1
                                                     });
                                                     dbCollectionDoc_1.update(data);
@@ -90,13 +91,13 @@ var arduinoRoutes = [
                                                         date: currentDate_1,
                                                         positions: [
                                                             {
-                                                                position: new firebase_1.default.firestore.GeoPoint(arduinoData.latitute, arduinoData.longitude),
+                                                                position: new firebase_1.default.firestore.GeoPoint(Number(arduinoData.latitute), Number(arduinoData.longitude)),
                                                                 time: currentDate_1
                                                             }
                                                         ]
                                                     });
                                                 }
-                                                return res.send("POST successful");
+                                                return res.status(200).send("POST successful");
                                             });
                                         }
                                         else {
@@ -121,7 +122,7 @@ var arduinoRoutes = [
         controller: function (req, res) {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    return [2 /*return*/, res.send("OH!hkg")];
+                    return [2 /*return*/, res.send("OH!")];
                 });
             });
         },
@@ -132,7 +133,7 @@ var arduinoRoutes = [
         controller: function (req, res) {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    return [2 /*return*/, res.send("123123")];
+                    return [2 /*return*/, res.send("")];
                 });
             });
         },
