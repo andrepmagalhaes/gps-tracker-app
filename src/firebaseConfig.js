@@ -4,8 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var firebase_1 = __importDefault(require("firebase"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 var firebaseConfig = {
-    apiKey: "AIzaSyAs1RgH6bFt0do5ed2yaGW3tZ_JQVHm4JM",
+    apiKey: process.env.FIREBASE_API_KEY,
     authDomain: "rastreador-gps-mc.firebaseapp.com",
     databaseURL: "https://rastreador-gps-mc-default-rtdb.firebaseio.com",
     projectId: "rastreador-gps-mc",
