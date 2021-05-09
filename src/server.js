@@ -10,5 +10,5 @@ var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 var app = new App_1.default(new AppRouter_1.default([
     arduinoRoutes_1.default
-]), (Number(process.env.PORT) || 8000));
+]), (Number(process.env.PORT) || 7000));
 app.test();

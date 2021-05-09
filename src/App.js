@@ -10,11 +10,16 @@ var App = /** @class */ (function () {
         this.db = firebaseConfig_1.default.firestore();
         this.port = port;
         this.app = express_1.default();
+        this.initMiddlewares();
         this.initRouter(routes);
         this.listen();
     }
     App.prototype.initRouter = function (routes) {
         this.app.use(routes.getRouter());
+    };
+    App.prototype.initMiddlewares = function () {
+        this.app.use(express_1.default.json());
+        this.app.use(express_1.default.urlencoded({ extended: true }));
     };
     App.prototype.listen = function () {
         var _this = this;

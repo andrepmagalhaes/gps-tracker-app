@@ -66,39 +66,48 @@ var arduinoRoutes = [
                     dbCollection = db.collection("bus_" + arduinoData.ID);
                     dbCollection.doc("settings").get().then(function (snapshot) {
                         var data = __assign({}, snapshot.data());
-                        if (Object.keys(data).length > 0) {
-                            //auth
-                            bcrypt_1.default.compare(arduinoData.key, data.privateKey, function (err, result) {
-                                if (err)
-                                    throw err;
-                                else {
-                                    if (result) {
-                                        var currentDate_1 = new Date();
-                                        var dbCollectionDoc_1 = dbCollection.doc("positions_" + currentDate_1.getDate() + "_" + (currentDate_1.getMonth() + 1) + "_" + currentDate_1.getFullYear());
-                                        dbCollectionDoc_1.get().then(function (snapshot) {
-                                            var data = __assign({}, snapshot.data());
-                                            if (Object.keys(data).length > 0) {
-                                                data.positions.unshift({
-                                                    position: new firebase_1.default.firestore.GeoPoint(arduinoData.latitute, arduinoData.longitude),
-                                                    time: currentDate_1
-                                                });
-                                                dbCollectionDoc_1.update(data);
-                                            }
-                                            else {
-                                                dbCollectionDoc_1.set({
-                                                    date: currentDate_1,
-                                                    positions: [
-                                                        {
-                                                            position: new firebase_1.default.firestore.GeoPoint(arduinoData.latitute, arduinoData.longitude),
-                                                            time: currentDate_1
-                                                        }
-                                                    ]
-                                                });
-                                            }
-                                        });
+                        if (data.isActive) {
+                            if (Object.keys(data).length > 0) {
+                                //auth
+                                bcrypt_1.default.compare(arduinoData.key, data.privateKey, function (err, result) {
+                                    if (err)
+                                        throw err;
+                                    else {
+                                        if (result) {
+                                            var currentDate_1 = new Date();
+                                            var dbCollectionDoc_1 = dbCollection.doc("positions_" + currentDate_1.getDate() + "_" + (currentDate_1.getMonth() + 1) + "_" + currentDate_1.getFullYear());
+                                            dbCollectionDoc_1.get().then(function (snapshot) {
+                                                var data = __assign({}, snapshot.data());
+                                                if (Object.keys(data).length > 0) {
+                                                    data.positions.unshift({
+                                                        position: new firebase_1.default.firestore.GeoPoint(arduinoData.latitute, arduinoData.longitude),
+                                                        time: currentDate_1
+                                                    });
+                                                    dbCollectionDoc_1.update(data);
+                                                }
+                                                else {
+                                                    dbCollectionDoc_1.set({
+                                                        date: currentDate_1,
+                                                        positions: [
+                                                            {
+                                                                position: new firebase_1.default.firestore.GeoPoint(arduinoData.latitute, arduinoData.longitude),
+                                                                time: currentDate_1
+                                                            }
+                                                        ]
+                                                    });
+                                                }
+                                                return res.send("POST successful");
+                                            });
+                                        }
+                                        else {
+                                            return res.send("POST failed!");
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+                        }
+                        else {
+                            return res.send("POST failed!");
                         }
                     });
                     return [2 /*return*/];
@@ -112,7 +121,18 @@ var arduinoRoutes = [
         controller: function (req, res) {
             return __awaiter(this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    return [2 /*return*/, res.send("OH!")];
+                    return [2 /*return*/, res.send("OH!hkg")];
+                });
+            });
+        },
+        type: controllers_1.methods.GET
+    },
+    {
+        path: "/postData",
+        controller: function (req, res) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, res.send("123123")];
                 });
             });
         },
