@@ -53,7 +53,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var controllers_1 = require("../interfaces/controllers");
 var bcrypt_1 = __importDefault(require("bcrypt"));
 var firebaseConfig_1 = __importDefault(require("../firebaseConfig"));
-var firebase_1 = __importDefault(require("firebase"));
 var db = firebaseConfig_1.default.firestore();
 var arduinoRoutes = [
     {
@@ -81,7 +80,7 @@ var arduinoRoutes = [
                                                 var data = __assign({}, snapshot.data());
                                                 if (Object.keys(data).length > 0) {
                                                     data.positions.unshift({
-                                                        position: new firebase_1.default.firestore.GeoPoint(Number(arduinoData.latitute), Number(arduinoData.longitude)),
+                                                        position: { lat: Number(arduinoData.latitute), lng: Number(arduinoData.longitude) },
                                                         time: currentDate_1
                                                     });
                                                     dbCollectionDoc_1.update(data);
@@ -91,7 +90,7 @@ var arduinoRoutes = [
                                                         date: currentDate_1,
                                                         positions: [
                                                             {
-                                                                position: new firebase_1.default.firestore.GeoPoint(Number(arduinoData.latitute), Number(arduinoData.longitude)),
+                                                                position: { lat: Number(arduinoData.latitute), lng: Number(arduinoData.longitude) },
                                                                 time: currentDate_1
                                                             }
                                                         ]
