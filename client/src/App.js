@@ -85,7 +85,7 @@ let longi;
 function App() {
   const [snapshot, loading, error] = useDocumentData(
     //`bus_0/positions_${currentDate.getDate()}_${currentDate.getMonth() + 1}_${currentDate.getFullYear()}`
-    firebase.firestore().doc(`bus_0/positions_10_05_2021`),
+    firebase.firestore().doc(`bus_0/positions_10_5_2021`),
     {
       snapshotListenOptions: { includeMetadataChanges: true },
     });
@@ -102,8 +102,8 @@ function App() {
 
   console.log(snapshot.positions[0].lat)
   const currentPos = {
-    lat: snapshot.positions[0].lat,
-    lng: snapshot.positions[0].lng
+    lat: Number(snapshot.positions[0].position.lat),
+    lng: Number(snapshot.positions[0].position.lng)
   };
 
   if(loadError) return "Error loading maps";
@@ -112,7 +112,7 @@ function App() {
   return (
     <div className="App">
      <GoogleMap mapContainerStyle={mapContainerStyle}
-     zoom={14}
+     zoom={18}
      center={currentPos}
      options={options}
      >
